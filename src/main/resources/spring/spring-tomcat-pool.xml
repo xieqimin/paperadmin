@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <context:property-placeholder location="classpath:spring/tomcat-pool-config.properties,classpath:mybatis/jdbc-mysql.properties"></context:property-placeholder>
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+          destroy-method="close">
+        <property name="poolProperties">
+            <bean class="org.apache.tomcat.jdbc.pool.PoolProperties">
+                <property name="url" value="${jdbc.url}"/>
+                <property name="driverClassName" value="${jdbc.driverClassName}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.pass}"/>
+                <property name="jmxEnabled" value="${jmxEnabled}"/>
+                <property name="validationInterval" value="${validationInterval}"/>
+                <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+                <property name="maxActive" value="${maxActive}"/>
+                <property name="initialSize" value="${initialSize}"/>
+                <property name="maxWait" value="${maxWait}"/>
+                <property name="maxIdle" value="${maxIdle}"/>
+                <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}"/>
+                <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+                <property name="minIdle" value="${minIdle}"/>
+                <property name="logAbandoned" value="${logAbandoned}"/>
+                <property name="removeAbandoned" value="${removeAbandoned}"/>
+                <property name="jdbcInterceptors" value="${jdbcInterceptors}"/>
+                <property name="validationQuery" value="${validationQuery}"/>
+                <property name="testOnBorrow" value="${testOnBorrow}"/>
+                <property name="testOnReturn" value="${testOnReturn}"/>
+                <property name="testWhileIdle" value="${testWhileIdle}"/>
+
+
+            </bean>
+        </property>
+    </bean>
+
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mybatis_mapper/*.xml</value>
+            </list>
+        </property>
+        <property name="typeAliasesPackage" value="com.wit.paperadmin.model"/>
+        <property name="plugins">
+            <list>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            reasonable=true
+                            supportMethodsArguments=true
+                            returnPageInfo=check
+                            params=count=countSql
+                        </value>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.wit.paperadmin.mapper"/>
+        <!-- 3.2.2版本新特性，markerInterface可以起到mappers配置的作用，详细情况需要看Marker接口类 -->
+        <!-- <property name="markerInterface" value="com.isea533.mybatis.util.MyMapper"/>-->
+        <!-- 通用Mapper通过属性注入进行配置，默认不配置时会注册Mapper<T>接口 -->
+        <!--<property name="properties">
+            <value>
+                mappers=tk.mybatis.mapper.common.Mapper
+            </value>
+        </property>-->
+
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+          scope="prototype">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+
+    <aop:aspectj-autoproxy />
+
+    <aop:config>
+        <aop:pointcut id="appService"
+                      expression="execution(* com.wit.paperadmin.service..*Service*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="appService" />
+    </aop:config>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="select*" read-only="true" />
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="sava*" />
+
+        </tx:attributes>
+    </tx:advice>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+
+
+    <!-- <property name="validationQuery"><value>SELECT 1</value></property>
+        <property name="testOnBorrow"><value>true</value></property> <property name="testOnReturn"><value>true</value></property>
+        <property name="testWhileIdle"><value>true</value></property> -->
+
+
+</beans>

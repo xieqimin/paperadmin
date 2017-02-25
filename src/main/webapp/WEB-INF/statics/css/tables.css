@@ -1,0 +1,27 @@
+td, th {
+    text-align: center;
+}
+.widgt {
+    margin: 0 10px 0px;
+}
+.table-header {
+    margin-bottom: 5px;
+}
+.orange {
+    color: orange;
+}
+.head-name {
+    display: inline;
+}
+
+.table-toolbar {
+    display: inline;
+    border-left: 1px solid grey;
+    padding-left: 4px;
+}
+.btn-table {
+    width: 80px;
+}
+.table-search {
+    min-width: 500px;
+}

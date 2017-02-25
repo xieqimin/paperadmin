@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wit.paperadmin.mapper.PaperKeyDataMapper" >
+  <resultMap id="BaseResultMap" type="com.wit.paperadmin.model.PaperKeyData" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="keyContent" property="keycontent" jdbcType="CHAR" />
+    <result column="paperID" property="paperid" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="getKeyByPaperID" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select keyContent from paper_aeskey where paperID = #{paperID}
+  </select>
+</mapper>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>试卷管理系统</title>
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 加载导航信息
+            $("body").load("nav.html", function () {
+                $("body").fadeIn(100);
+                $('#main-content').load("upload_content.html", function () {
+                    $(".main-content").fadeIn(10);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

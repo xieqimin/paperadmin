@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wit.paperadmin.mapper.InstituteDataMapper" >
+  <resultMap id="BaseResultMap" type="com.wit.paperadmin.model.InstituteData" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="instituteName" property="institutename" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

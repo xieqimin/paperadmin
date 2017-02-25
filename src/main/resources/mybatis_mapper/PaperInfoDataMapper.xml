@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wit.paperadmin.mapper.PaperInfoDataMapper">
+  <resultMap id="BaseResultMap" type="com.wit.paperadmin.model.PaperInfoData">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="schoolYearID" jdbcType="INTEGER" property="schoolyearid" />
+    <result column="term" jdbcType="CHAR" property="term" />
+    <result column="instituteID" jdbcType="INTEGER" property="instituteid" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="paperNumber" jdbcType="INTEGER" property="papernumber" />
+    <result column="answersheetNumber" jdbcType="INTEGER" property="answersheetnumber" />
+    <result column="scratchpaperNumber" jdbcType="INTEGER" property="scratchpapernumber" />
+    <result column="paperType" jdbcType="CHAR" property="papertype" />
+    <result column="testTime" jdbcType="INTEGER" property="testtime" />
+    <result column="uploadTime" jdbcType="INTEGER" property="uploadtime" />
+    <result column="paperStatus" jdbcType="INTEGER" property="paperstatus" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="saveaddress" jdbcType="VARCHAR" property="saveaddress" />
+    <result column="receiveTime" jdbcType="INTEGER" property="receivetime" />
+    <result column="receivePerson" jdbcType="VARCHAR" property="receiveperson" />
+    <result column="saveLocation" jdbcType="VARCHAR" property="savelocation" />
+  </resultMap>
+
+  <resultMap id="PaperInfoMapper" type="com.wit.paperadmin.pojo.PaperInfoVo" extends="BaseResultMap">
+    <association property="schoolyear" column="schoolYearID" select="getSchoolYear"/>
+    <association property="institute" column="instituteID" select="getInstitute"/>
+    <association property="status" column="paperStatus" select="getStatus"/>
+    <association property="username" column="userID" select="getUsernameByUserID"/>
+  </resultMap>
+
+  <select id="getPaperCountByUserID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from paperinfo where userID = #{userID}
+  </select>
+
+  <select id="getPaperListByTerm" resultMap="PaperInfoMapper">
+    select * from paperinfo where userID = #{0}
+     and schoolYearID = #{1} and term = #{2}
+     order by uploadTime desc
+  </select>
+
+  <select id="getSchoolYear" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select schoolYearName from school_year where ID = #{schoolYearID}
+  </select>
+
+  <select id="getInstitute" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select instituteName from institute where ID = #{instituteID}
+  </select>
+
+  <select id="getStatus" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select statusName from paper_status where ID = #{paperStatus}
+  </select>
+
+  <select id="getProfessionByInstituteID" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select distinct profession from paperinfo where instituteID = #{instituteID}
+  </select>
+
+  <select id="getUsernameByUserID" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select username from userinfo where ID = #{userID}
+  </select>
+
+  <select id="getPaperListByCondition" parameterType="com.wit.paperadmin.pojo.SearchVo" resultMap="PaperInfoMapper">
+    select * from paperinfo where schoolYearID = #{schoolyearid} and term = #{term}
+    <if test="profession != null">
+      and profession = #{profession}
+    </if>
+    <if test="instituteid != null">
+      and instituteID = #{instituteid}
+    </if>
+    <if test="paperstatusid != null">
+      and paperStatus = #{paperstatusid}
+    </if>
+  </select>
+</mapper>

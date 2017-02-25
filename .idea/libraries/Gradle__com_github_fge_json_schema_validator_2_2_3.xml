@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.fge:json-schema-validator:2.2.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.fge/json-schema-validator/2.2.3/6708b4ea223564a5db416738cf401a28d503948/json-schema-validator-2.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.fge/json-schema-validator/2.2.3/2e3e92a1458bcd82cdf2a70016531065f95e9fce/json-schema-validator-2.2.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

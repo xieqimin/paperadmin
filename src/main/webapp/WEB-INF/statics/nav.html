@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>试卷管理系统</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <link rel="stylesheet" href="css/nav.css">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/nav.js"></script>
+</head>
+<body id="nav">
+<div class="navbar navbar-default" id="navbar">
+
+    <div class="navbar-container" >
+        <div class="navbar-header pull-left" id="navbar-header">
+            <a href="#" class="navbar-brand">
+							<span style="color:white">
+							<i class="glyphicon glyphicon-cloud"></i>
+							试卷管理系统
+							</span>
+            </a><!-- /.brand -->
+        </div><!-- /.navbar-header -->
+
+        <div class="navbar-header pull-right" role="navigation">
+            <ul class="nav" id="nav_ul">
+                <li id="nav_li">
+                    <a data-toggle="dropdown" href="#" class="dropdown-toggle" >
+                        <!--<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="user photo" />-->
+                        <span class="not_signin"><label id="login_user">未登录</label>
+								<i class="icon-caret-down"></i></span>
+                    </a>
+
+                    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <!--<li>-->
+                            <!--<a href="#" id="personal_info">-->
+                                <!--<i class="icon-user"></i>-->
+                                <!--个人资料-->
+                            <!--</a>-->
+                        <!--</li>-->
+
+                        <!--<li class="divider"></li>-->
+
+                        <li>
+                            <a id="user_quit">
+                                <i class="icon-off"></i>
+                                退出
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul><!-- /.ace-nav -->
+        </div><!-- /.navbar-header -->
+    </div><!-- /.container -->
+</div>
+<div id="main-content"></div>
+</body>
+</html>

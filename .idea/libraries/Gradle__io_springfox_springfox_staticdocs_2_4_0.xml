@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.springfox:springfox-staticdocs:2.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-staticdocs/2.4.0/38f2969ff0f8f49c49e2c07a73a76d3ca03edc83/springfox-staticdocs-2.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-staticdocs/2.4.0/dbfa85c5c697934da6defc52505df253251ea07f/springfox-staticdocs-2.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

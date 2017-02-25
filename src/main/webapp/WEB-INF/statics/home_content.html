@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/home.css">
+    <script src="js/bootbox.js"></script>
+    <script src="js/home.js"></script>
+</head>
+<body id="home-content">
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="home.html">首页</a>
+        </li>
+
+
+        <input type="button" class="btn btn-primary pull-right" id="btn-change" value="修改密码">
+        <!--<li>-->
+        <!--<a href="capital_account.html">登录</a>-->
+        <!--</li>-->
+
+        <!--<li class="active">添加资金账号</li>-->
+        <!--<li class="active">控制台</li>-->
+    </ul><!-- .breadcrumb -->
+
+</div>
+<div class="page-content">
+    <div class="table-header">
+        <h4 class="head-name">
+            <i class="icon-star orange"></i>
+            试卷列表
+        </h4>
+
+        <label for="school-year" class="lb-school-year">学年</label>
+        <select class="search-condition" id="school-year">
+        </select>
+
+        <label>学期</label>
+        <select class="search-condition" id="term">
+            <option>第1学期</option>
+            <option>第2学期</option>
+        </select>
+
+        <input type="button" class="btn btn-primary" id="btn-search" value="查询">
+        <div class="table-toolbar pull-right">
+            <a href="upload.html">上传试卷</a>
+        </div>
+
+
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thin-border-bottom">
+        <tr>
+            <th>
+                课程名
+            </th>
+
+            <th>
+                学年
+            </th>
+
+            <th>
+                学期
+            </th>
+            <th>
+                学院
+            </th>
+            <th>
+                专业
+            </th>
+
+            <th>
+                试卷份数
+            </th>
+
+            <th>
+                答题纸份数
+            </th>
+
+            <th>
+                草稿纸份数
+            </th>
+
+            <th>
+                试卷类型
+            </th>
+
+            <th>
+                考试时间
+            </th>
+
+            <th>
+                上传/最后修改时间
+            </th>
+
+            <th>
+                试卷状态
+            </th>
+
+            <th>
+                操作
+            </th>
+        </tr>
+        </thead>
+
+        <tbody id="tbcontent">
+        </tbody>
+    </table>
+    <!--<div class="pull-right btns">-->
+        <!--<input type="button" class="btn btn-primary" id="pre-page" value="上一页">-->
+        <!--<span id="page-info">第 1 页/共 1 页</span>-->
+        <!--<input type="button" class="btn btn-primary" id="next-page" value="下一页">-->
+    <!--</div>-->
+</div>
+
+</body>
+</html>

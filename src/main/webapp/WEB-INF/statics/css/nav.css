@@ -1,0 +1,21 @@
+#navbar{
+    background-color: #0C5F9C;
+    margin-bottom:0;
+}
+
+#nav_ul>li>a {
+    color:white;
+}
+
+#nav_ul>li>a:hover, #nav_ul>li>a:focus {
+    color:black;
+}
+
+.open>a:hover, #nav_ul .open>a:focus {
+    background-color: #eee;
+    border-color: #428bca;
+}
+.page-content {
+    margin-right: 1%;
+    margin-left: 1%;
+}

@@ -1,0 +1,18 @@
+.breadcrumb>#btn-change{
+    padding: 2px 3px;
+    width: 70px;
+    font-size: 14px;
+}
+.lb-school-year {
+    margin-left: 40px;
+}
+.search-condition {
+    width: 120px;
+    height: 25px;
+    font-size: 12pt;
+    padding: 2px 0;
+}
+#btn-search {
+    padding: 5px 0;
+    width: 70px;
+}

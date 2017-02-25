@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/changepwd.css">
+    <script src="js/bootbox.js"></script>
+    <script src="js/changepwd.js"></script>
+</head>
+<body>
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="home.html">首页</a>
+        </li>
+
+        <li>
+            <a href="#">修改密码</a>
+        </li>
+
+        <!--<li class="active">添加资金账号</li>-->
+        <!--<li class="active">控制台</li>-->
+    </ul><!-- .breadcrumb -->
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-4 col-md-offset-4" >
+            <div class="row">
+                <div class="col-sm-8 form-content">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                           <label class="col-sm-4" for="old-pwd">原密码</label>
+                            <input type="password" id="old-pwd">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4" for="new-pwd">新密码</label>
+                            <input type="password" id="new-pwd">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4" for="certain-pwd">确认密码</label>
+                            <input type="password" id="certain-pwd">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8 col-md-offset-2">
+                                <input type="button" class="btn btn-primary btn-changes" id="btn-certain" value="确定">
+                                <input type="button" class="btn btn-primary btn-changes" id="btn-cancel" value="取消">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
