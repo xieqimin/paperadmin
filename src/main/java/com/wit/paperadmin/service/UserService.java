@@ -1,7 +1,9 @@
 package com.wit.paperadmin.service;
 
 import com.wit.paperadmin.Utils.Md5Wrapper;
+import com.wit.paperadmin.mapper.ManagerInfoDataMapper;
 import com.wit.paperadmin.mapper.UserInfoDataMapper;
+import com.wit.paperadmin.model.ManagerInfoData;
 import com.wit.paperadmin.model.UserInfoData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class UserService {
     @Autowired
     private UserInfoDataMapper userInfoDataMapper;
 
+    @Autowired
+    private ManagerInfoDataMapper midMapper;
+
     /**
      * 用户登录，成功返回1
      * 用户名或密码错误返回0
@@ -27,6 +32,12 @@ public class UserService {
         String password = Md5Wrapper.getMD5(userInfoData.getPassword());
         userInfoData.setPassword(password);
         return userInfoDataMapper.selectCount(userInfoData);
+    }
+
+    public int managerLogin(ManagerInfoData managerInfoData) {
+        String passoword = Md5Wrapper.getMD5(managerInfoData.getPassword());
+        managerInfoData.setPassword(passoword);
+        return midMapper.selectCount(managerInfoData);
     }
 
     /**

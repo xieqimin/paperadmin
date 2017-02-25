@@ -1,14 +1,14 @@
 package com.wit.paperadmin.controller;
 
+import com.wit.paperadmin.model.ManagerInfoData;
 import com.wit.paperadmin.model.UserInfoData;
 import com.wit.paperadmin.pojo.BaseResponse;
 import com.wit.paperadmin.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by 何鹏帅 on 2016/11/26.
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 
+    Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -30,6 +31,21 @@ public class UserController {
     public BaseResponse login(@ModelAttribute("userInfoData") UserInfoData userInfoData) throws Exception{
         BaseResponse msg = new BaseResponse();
         int ret = userService.login(userInfoData);
+        if(ret == 0) {
+            msg.setCode(0);
+            msg.setMessage("用户名或密码错误，请重新输入");
+        } else {
+            msg.setCode(1);
+            msg.setMessage("登录成功");
+        }
+        return msg;
+    }
+
+    @RequestMapping("/manager_login")
+    @ResponseBody
+    public BaseResponse managerLogin(@ModelAttribute("managerInfoDate")ManagerInfoData managerInfoData) {
+        BaseResponse msg = new BaseResponse();
+        int ret = userService.managerLogin(managerInfoData);
         if(ret == 0) {
             msg.setCode(0);
             msg.setMessage("用户名或密码错误，请重新输入");
