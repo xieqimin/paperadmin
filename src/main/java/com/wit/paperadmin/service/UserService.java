@@ -61,4 +61,26 @@ public class UserService {
             return 1;
         }
     }
+
+    /**
+     * 管理员修改密码
+     * @param managerInfoData
+     * @param newPassword
+     * @return
+     */
+    public int manageChangePassword(ManagerInfoData managerInfoData, String newPassword) {
+        String password = Md5Wrapper.getMD5(managerInfoData.getPassword());
+        managerInfoData.setPassword(password);
+        List<ManagerInfoData> users = midMapper.select(managerInfoData);
+
+        if(users.size() == 0) {
+            return 0;
+        } else {
+            String newPwd = Md5Wrapper.getMD5(newPassword);
+            managerInfoData = users.get(0);
+            managerInfoData.setPassword(newPwd);
+            midMapper.updateByPrimaryKey(managerInfoData);
+            return 1;
+        }
+    }
 }

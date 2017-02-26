@@ -158,4 +158,24 @@ public class PaperController {
     public List<PaperInfoVo> getPaperListByCondition(@RequestBody SearchVo searchVo) {
         return paperService.getPaperListByCondition(searchVo);
     }
+
+    /**
+     * 管理员更新试卷信息
+     * @param paperInfoData
+     * @return
+     */
+    @RequestMapping("/update_paper_info")
+    @ResponseBody
+    public BaseResponse updatePaperInfo(@RequestBody PaperInfoData paperInfoData) {
+        BaseResponse msg = new BaseResponse();
+        int ret = paperService.updatePaperInfo(paperInfoData);
+
+        if(ret == 1) {
+            msg.setCode(1);
+        } else {
+            msg.setCode(0);
+        }
+
+        return msg;
+    }
 }

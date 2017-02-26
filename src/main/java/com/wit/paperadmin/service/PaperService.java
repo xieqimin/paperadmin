@@ -231,4 +231,14 @@ public class PaperService {
 
         return paperInfoVos;
     }
+
+    /**
+     * 管理员更新试卷信息
+     * @param paperInfoData
+     * @return
+     */
+    public int updatePaperInfo(PaperInfoData paperInfoData) {
+        pidMapper.updateByPrimaryKey(paperInfoData);
+        return 1;
+    }
 }

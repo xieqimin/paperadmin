@@ -77,4 +77,26 @@ public class UserController {
         }
         return msg;
     }
+
+    /**
+     * 管理员修改密码
+     * @param managerInfoData
+     * @param newpassword
+     * @return
+     */
+    @RequestMapping("/manager_change_password")
+    @ResponseBody
+    public BaseResponse managerChangePassword(@ModelAttribute("managerInfoData") ManagerInfoData managerInfoData, @RequestParam String newpassword) {
+        BaseResponse msg = new BaseResponse();
+        int ret = userService.manageChangePassword(managerInfoData, newpassword);
+
+        if(ret == 0) {
+            msg.setCode(0);
+            msg.setMessage("原密码输入错误");
+        } else {
+            msg.setCode(1);
+            msg.setMessage("密码修改成功");
+        }
+        return msg;
+    }
 }
