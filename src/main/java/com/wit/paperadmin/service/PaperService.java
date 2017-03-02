@@ -1,5 +1,6 @@
 package com.wit.paperadmin.service;
 
+import com.wit.paperadmin.Utils.AESUtil;
 import com.wit.paperadmin.Utils.AESUtils;
 import com.wit.paperadmin.Utils.SHAUtils;
 import com.wit.paperadmin.mapper.PaperInfoDataMapper;
@@ -11,14 +12,22 @@ import com.wit.paperadmin.model.UserInfoData;
 import com.wit.paperadmin.pojo.PaperFileInfo;
 import com.wit.paperadmin.pojo.PaperInfoVo;
 import com.wit.paperadmin.pojo.SearchVo;
+import com.wit.paperadmin.pojo.StatisticsPaperInfo;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -61,15 +70,16 @@ public class PaperService {
         String filePath = root + "\\" + System.currentTimeMillis()/1000;
 
         // 临时文件路径
-        String temp = root + "\\" + file.getName();
+        String temp = root + "\\" + file.getOriginalFilename();
 
         file.transferTo(new File(temp));
 
         // 对文件加密
-        String key = AESUtils.getSecretKey();
-        String shaKey = SHAUtils.getSha1(key);
-        String encryptKey = AESUtils.getSecretKey(shaKey);
-        AESUtils.encryptFile(encryptKey, temp, filePath);
+        String key = AESUtil.getKey();
+        String realKey = key.substring(4, 20);
+        AESUtil.aesEncryptFile(temp, filePath, realKey);
+        logger.info("key:" + key);
+        logger.info("realkey: " + realKey);
 
         // 删除原文件
         File tep = new File(temp);
@@ -240,5 +250,47 @@ public class PaperService {
     public int updatePaperInfo(PaperInfoData paperInfoData) {
         pidMapper.updateByPrimaryKey(paperInfoData);
         return 1;
+    }
+
+    /**
+     * 根据试卷id下载试卷
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    public ResponseEntity<byte[]> downloadPaperByID(Integer id) throws IOException {
+
+        // 根据试卷id获取试卷信息
+        PaperInfoData paperInfoData = pidMapper.selectByPrimaryKey(id);
+
+        File file=new File(paperInfoData.getSaveaddress());
+        HttpHeaders headers = new HttpHeaders();
+        String fileName=new String(file.getName().getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题
+        headers.setContentDispositionFormData("attachment", fileName);
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
+                headers, HttpStatus.CREATED);
+    }
+
+    /**
+     * 根据试卷ID获取密钥信息
+     * @param id
+     * @return
+     */
+    public PaperKeyData getKeyByPaperID(Integer id) {
+        PaperKeyData keyData = new PaperKeyData();
+        keyData.setId(null);
+        keyData.setPaperid(id);
+        return pkdMapper.select(keyData).get(0);
+    }
+
+    /**
+     * 统计试卷
+     * @param schoolYearID
+     * @param term
+     * @return
+     */
+    public List<StatisticsPaperInfo> statisticsPaper(int schoolYearID, String term) {
+        return pidMapper.statisticsPaper(schoolYearID, term);
     }
 }

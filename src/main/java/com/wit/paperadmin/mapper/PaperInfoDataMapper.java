@@ -3,6 +3,7 @@ package com.wit.paperadmin.mapper;
 import com.wit.paperadmin.model.PaperInfoData;
 import com.wit.paperadmin.pojo.PaperInfoVo;
 import com.wit.paperadmin.pojo.SearchVo;
+import com.wit.paperadmin.pojo.StatisticsPaperInfo;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -14,4 +15,5 @@ public interface PaperInfoDataMapper extends Mapper<PaperInfoData> {
     List<PaperInfoVo> getPaperListByTerm(int userID, int schoolyearID, String term);
     List<String> getProfessionByInstituteID(int instituteID);
     List<PaperInfoVo> getPaperListByCondition(SearchVo searchVo);
+    List<StatisticsPaperInfo> statisticsPaper(int schoolYearID, String term);
 }

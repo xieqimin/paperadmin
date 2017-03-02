@@ -74,4 +74,10 @@
       and paperStatus = #{paperstatusid}
     </if>
   </select>
+  
+  <select id="statisticsPaper" resultType="com.wit.paperadmin.pojo.StatisticsPaperInfo">
+    select count(*) number, instituteName from paperinfo a, institute b
+    where a.instituteID = b.ID and a.schoolYearID = #{0} and a.term regexp #{1}
+    group by a.instituteID
+  </select>
 </mapper>

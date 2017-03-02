@@ -1,10 +1,8 @@
 package com.wit.paperadmin.controller;
 
 import com.wit.paperadmin.model.PaperInfoData;
-import com.wit.paperadmin.pojo.BaseResponse;
-import com.wit.paperadmin.pojo.PaperFileInfo;
-import com.wit.paperadmin.pojo.PaperInfoVo;
-import com.wit.paperadmin.pojo.SearchVo;
+import com.wit.paperadmin.model.PaperKeyData;
+import com.wit.paperadmin.pojo.*;
 import com.wit.paperadmin.service.PaperService;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -177,5 +175,39 @@ public class PaperController {
         }
 
         return msg;
+    }
+
+    /**
+     * 根据试卷id下载试卷
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/download_paper_by_id")
+    public ResponseEntity<byte[]> downloadPaperByID(@RequestParam Integer id) throws IOException {
+        return paperService.downloadPaperByID(id);
+    }
+
+    /**
+     * 根据试卷ID获取密钥
+     * @param id
+     * @return
+     */
+    @RequestMapping("/get_keydata_by_paper_id")
+    @ResponseBody
+    public PaperKeyData getKeyDataByPaperID(@RequestParam Integer id) {
+        return paperService.getKeyByPaperID(id);
+    }
+
+    /**
+     * 统计试卷信息
+     * @param schoolYearID
+     * @param term
+     * @return
+     */
+    @RequestMapping("/statistics_paper")
+    @ResponseBody
+    public List<StatisticsPaperInfo> statisticsPaper(@RequestParam Integer schoolYearID, String term) {
+        return paperService.statisticsPaper(schoolYearID, term);
     }
 }
