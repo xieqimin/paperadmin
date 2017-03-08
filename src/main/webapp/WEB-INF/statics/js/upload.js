@@ -13,6 +13,7 @@ $(function () {
     });
 
     $('.sl-institute').change(function () {
+        $('#pro').val("");
         getProfessions();
         var instituteName = $('.sl-institute option:selected').val();
         for(var i = 0; i<institutes.length; i++) {

@@ -14,6 +14,7 @@ $(function () {
 
     $('.sl-institute').change(function () {
         var instituteName = $('.sl-institute option:selected').val();
+        $('#pro').val("");
         getProfessions();
         for(var i = 0; i<institutes.length; i++) {
             if(instituteName == institutes[i]['institutename']) {
@@ -35,9 +36,11 @@ $(function () {
         }
     });
 
+    $('#pro').change(function () {
+        paperInfo['profession'] = $('#pro').val();
+    });
     $('.sl-profession').change(function () {
-        paperInfo['profession'] = $('.sl-profession option:selected').val();
-
+        paperInfo['profession'] = $('#pro').val();
     });
 
     $('.sl-paper-type').change(function () {
@@ -233,7 +236,7 @@ function getPaperInfoByID() {
             $('#scratchpapernumber').val(data['scratchpapernumber']);
             var unixTimestamp = new Date(data['testtime'] * 1000);
             var testtime = unixTimestamp.toLocaleString().split(' ')[0];
-            var dates = testtime.split("/");
+            var dates = testtime.split("-");
             if(dates[1] < 10) {
                 dates[0] = dates[0] + "-0" + dates[1];
             } else {

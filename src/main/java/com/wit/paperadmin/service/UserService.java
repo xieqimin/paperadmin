@@ -34,6 +34,12 @@ public class UserService {
         return userInfoDataMapper.selectCount(userInfoData);
     }
 
+    /**
+     * 教务处登录，成功返回1
+     * 用户名或密码错误返回0
+     * @param managerInfoData
+     * @return
+     */
     public int managerLogin(ManagerInfoData managerInfoData) {
         String passoword = Md5Wrapper.getMD5(managerInfoData.getPassword());
         managerInfoData.setPassword(passoword);
